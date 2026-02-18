@@ -95,20 +95,20 @@ This is the most important logic in your app.
 Create:
 src/features/study/studyEngine.ts
 
-☐ 4️⃣ Create Session Engine (Pure + Tested)
+☑ 4️⃣ Create Session Engine (Pure + Tested)
 Write Tests First
 
 Test Cases
 
-☐ createSession initializes queue
+☑ createSession initializes queue
 
-☐ markCorrect removes card
+☑ markCorrect removes card
 
-☐ markWrong moves card to end
+☑ markWrong moves card to end
 
-☐ Session ends when queue empty
+☑ Session ends when queue empty
 
-☐ No state mutation
+☑ No state mutation
 
 Acceptance Criteria
 

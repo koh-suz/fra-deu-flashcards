@@ -1,2 +1,2 @@
-// Study engine reducer — implemented in Phase 1
+// React reducer wrapper for studyEngine — implemented in Phase 2
 export {};
