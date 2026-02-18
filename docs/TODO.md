@@ -147,15 +147,15 @@ No lint warnings
 No mutation
 
 🟡 Phase 2 — Study UI Integration (Minimal Testing)
-☐ 6️⃣ Build Flashcard Component
+☑ 6️⃣ Build Flashcard Component
 
 Tasks
 
-☐ Display French word
+☑ Display French word
 
-☐ Flip to German
+☑ Flip to German
 
-☐ Show buttons after flip
+☑ Show buttons after flip
 
 Acceptance Criteria
 
