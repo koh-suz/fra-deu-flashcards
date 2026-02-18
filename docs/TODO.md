@@ -120,7 +120,7 @@ ESLint passes
 
 No React dependency
 
-☐ 5️⃣ Add Statistics Logic (Pure + Tested)
+☑ 5️⃣ Add Statistics Logic (Pure + Tested)
 
 Create:
 
@@ -130,13 +130,13 @@ calculateAccuracy
 
 Tests First
 
-☐ Correct increments correctCount
+☑ Correct increments correctCount
 
-☐ Wrong increments incorrectCount
+☑ Wrong increments incorrectCount
 
-☐ Accuracy correct
+☑ Accuracy correct
 
-☐ Zero division safe
+☑ Zero division safe
 
 Acceptance Criteria
 
