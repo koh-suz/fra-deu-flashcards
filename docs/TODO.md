@@ -343,12 +343,102 @@ No duplicate IDs
 
 No lint warnings
 
-🔴 Phase 7 — Polish
-☐ 1️⃣7️⃣ Add Smooth Flip Animation
+�🟠 Phase 7 — Database Integration (Supabase MCP)
+☑ 1️⃣7️⃣ Setup Database Schema (Using existing "flashcards" project)
+
+Tasks
+
+☑ Create flashcards table schema via MCP
+
+☑ Verify table structure
+
+Acceptance Criteria
+
+Table schema matches Flashcard type (id, french, german, category)
+
+Table accessible via MCP tools
+
+Project ID: ucptiohyuhlfgsilsvcq
+
+☑ 1️⃣8️⃣ Create Database Wrapper Using Supabase Client
+
+Create:
+supabaseMCP.ts (wrapper using @supabase/supabase-js)
+
+fetchCards() - async fetch from database
+
+createCard() - async insert to database
+
+updateCard() - optional
+
+deleteCard() - optional
+
+Acceptance Criteria
+
+All CRUD operations work
+
+Error handling for SQL errors
+
+TypeScript types match Flashcard
+
+No direct SQL in components
+
+API keys secured in .env
+
+☑ 1️⃣9️⃣ Migrate AppContext from localStorage to Supabase
+
+Tasks
+
+☑ Update AppContext to use Supabase wrapper
+
+☑ Add async initialization
+
+☑ Keep localStorage as offline fallback
+
+☑ Migrate existing localStorage data to Supabase
+
+☑ Add loading states to AppProvider
+
+Acceptance Criteria
+
+Cards load from Supabase on app start
+
+New cards save to Supabase via MCP
+
+Existing localStorage cards migrated
+
+Offline fallback works
+
+No data loss during migration
+
+☑ 2️⃣0️⃣ Add Loading & Error States
+
+Tasks
+
+☑ Loading spinner for initial fetch
+
+☑ Error messages for failed operations
+
+☑ Retry logic for failed requests
+
+☑ Optimistic UI updates
+
+Acceptance Criteria
+
+User sees loading states
+
+Errors handled gracefully
+
+Network failures don't crash app
+
+Good UX during async operations
+
+🔴 Phase 8 — Polish
+☐ 2️⃣1️⃣ Add Smooth Flip Animation
 
 Manual verification only.
 
-☐ 1️⃣8️⃣ Accessibility Improvements
+☐ 2️⃣2️⃣ Accessibility Improvements
 
 Manual checks:
 

@@ -15,7 +15,7 @@ export function AddCardPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [success, setSuccess] = useState(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setSuccess(false);
 
@@ -34,7 +34,7 @@ export function AddCardPage() {
       category: formData.category.trim().toLowerCase(),
     };
 
-    addCard(newCard);
+    await addCard(newCard);
     setErrors({});
     setSuccess(true);
     setFormData({ french: '', german: '', category: '' });
