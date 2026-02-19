@@ -165,15 +165,15 @@ No React hook lint errors
 
 No unused state
 
-☐ 7️⃣ Integrate Study Engine with React State
+☑ 7️⃣ Integrate Study Engine with React State
 
 Tasks
 
-☐ Connect engine to reducer/useState
+☑ Connect engine to reducer/useState
 
-☐ Implement session completion
+☑ Implement session completion
 
-☐ Ensure wrong cards repeat
+☑ Ensure wrong cards repeat
 
 Acceptance Criteria
 
