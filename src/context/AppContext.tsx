@@ -1,7 +1,8 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import type { Flashcard } from '../types/flashcard';
 import { initialCards } from '../data/initialCards';
+import { saveCards, loadCards } from '../utils/storage';
 
 interface AppContextType {
   cards: Flashcard[];
@@ -11,7 +12,14 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | null>(null);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [cards, setCards] = useState<Flashcard[]>(initialCards);
+  const [cards, setCards] = useState<Flashcard[]>(() => {
+    const stored = loadCards();
+    return stored.length > 0 ? stored : initialCards;
+  });
+
+  useEffect(() => {
+    saveCards(cards);
+  }, [cards]);
 
   const addCard = (card: Flashcard) => {
     setCards((prev) => [...prev, card]);

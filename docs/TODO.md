@@ -184,18 +184,18 @@ ESLint shows no hook dependency issues
 No console warnings
 
 🟡 Phase 3 — Category Filtering (Light Testing)
-☐ 8️⃣ Implement Category Filtering
+☑ 8️⃣ Implement Category Filtering
 
 Create pure function:
 filterCardsByCategory
 
 Tests First
 
-☐ Returns correct subset
+☑ Returns correct subset
 
-☐ "all" returns all cards
+☑ "all" returns all cards
 
-☐ Unknown category safe
+☑ Unknown category safe
 
 Acceptance Criteria
 
@@ -206,20 +206,20 @@ UI verified manually
 No lint warnings
 
 🟠 Phase 4 — Quiz Logic (Test Carefully)
-☐ 9️⃣ Multiple Choice Generator (Pure + Tested)
+☑ 9️⃣ Multiple Choice Generator (Pure + Tested)
 
 Create:
 generateMultipleChoiceOptions
 
 Tests First
 
-☐ Exactly 3 options
+☑ Exactly 3 options
 
-☐ Exactly 1 correct
+☑ Exactly 1 correct
 
-☐ No duplicates
+☑ No duplicates
 
-☐ Randomized order
+☑ Randomized order
 
 Acceptance Criteria
 
@@ -229,20 +229,20 @@ No bias patterns
 
 ESLint clean
 
-☐ 🔟 Fill-in Validation (Pure + Tested)
+☑ 🔟 Fill-in Validation (Pure + Tested)
 
 Create:
 validateAnswer
 
 Tests First
 
-☐ Case insensitive
+☑ Case insensitive
 
-☐ Strict match
+☑ Strict match
 
-☐ Trim whitespace
+☑ Trim whitespace
 
-☐ Empty fails
+☑ Empty fails
 
 Acceptance Criteria
 
@@ -253,7 +253,7 @@ No mutation
 ESLint clean
 
 🟠 Phase 5 — Quiz UI (Manual Testing)
-☐ 1️⃣1️⃣ Build Multiple Choice Quiz UI
+☑ 1️⃣1️⃣ Build Multiple Choice Quiz UI
 
 Acceptance Criteria
 
@@ -267,7 +267,7 @@ Stats update
 
 No lint warnings
 
-☐ 1️⃣2️⃣ Build Fill-in Quiz UI
+☑ 1️⃣2️⃣ Build Fill-in Quiz UI
 
 Acceptance Criteria
 
@@ -279,23 +279,35 @@ Stats accurate
 
 No lint warnings
 
+☑ 1️⃣3️⃣ Build Statistics Page UI
+
+Acceptance Criteria
+
+Card collection stats displayed
+
+Category breakdown with visual bars
+
+Clean layout
+
+No lint warnings
+
 🟠 Phase 6 — Add Card + Persistence
-☐ 1️⃣3️⃣ Add Card Validation (Pure + Tested)
+☑ 1️⃣4️⃣ Add Card Validation (Pure + Tested)
 
 Create:
 validateNewCard
 
 Tests First
 
-☐ Empty French fails
+☑ Empty French fails
 
-☐ Empty German fails
+☑ Empty German fails
 
-☐ Category required
+☑ Category required
 
-☐ Valid passes
+☑ Valid passes
 
-☐ 1️⃣4️⃣ Implement localStorage Wrapper
+☑ 1️⃣5️⃣ Implement localStorage Wrapper
 
 Create:
 
@@ -305,11 +317,11 @@ loadCards
 
 Minimal Tests
 
-☐ Save works
+☑ Save works
 
-☐ Load works
+☑ Load works
 
-☐ Handles empty storage
+☑ Handles empty storage
 
 Acceptance Criteria
 
@@ -319,7 +331,7 @@ JSON parse guarded
 
 ESLint clean
 
-☐ 1️⃣5️⃣ Add Card UI
+☑ 1️⃣6️⃣ Add Card UI
 
 Acceptance Criteria
 
@@ -332,11 +344,11 @@ No duplicate IDs
 No lint warnings
 
 🔴 Phase 7 — Polish
-☐ 1️⃣6️⃣ Add Smooth Flip Animation
+☐ 1️⃣7️⃣ Add Smooth Flip Animation
 
 Manual verification only.
 
-☐ 1️⃣7️⃣ Accessibility Improvements
+☐ 1️⃣8️⃣ Accessibility Improvements
 
 Manual checks:
 
