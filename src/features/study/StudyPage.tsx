@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useReducer, useState, useEffect } from 'react';
 import { Flashcard } from '../../components/Flashcard/Flashcard';
 import { useAppContext } from '../../context/AppContext';
 import {
@@ -7,10 +7,14 @@ import {
   markWrong,
   isSessionComplete,
 } from './studyEngine';
+import { filterCardsByCategory } from '../../utils/filterCardsByCategory';
 import type { SessionState } from '../../types/flashcard';
 import styles from './StudyPage.module.css';
 
-type Action = { type: 'CORRECT' } | { type: 'WRONG' } | { type: 'RESTART' };
+type Action =
+  | { type: 'CORRECT' }
+  | { type: 'WRONG' }
+  | { type: 'RESET'; cardIds: string[] };
 
 function reducer(state: SessionState, action: Action): SessionState {
   switch (action.type) {
@@ -18,8 +22,8 @@ function reducer(state: SessionState, action: Action): SessionState {
       return markCorrect(state);
     case 'WRONG':
       return markWrong(state);
-    case 'RESTART':
-      return state;
+    case 'RESET':
+      return createSession(action.cardIds, 'study');
     default:
       return state;
   }
@@ -27,7 +31,14 @@ function reducer(state: SessionState, action: Action): SessionState {
 
 export function StudyPage() {
   const { cards } = useAppContext();
-  const cardIds = cards.map((c) => c.id);
+  const [selectedCategory, setSelectedCategory] = useState('all');
+
+  // Get unique categories from cards
+  const categories = ['all', ...Array.from(new Set(cards.map((c) => c.category)))];
+
+  // Filter cards by selected category
+  const filteredCards = filterCardsByCategory(cards, selectedCategory);
+  const cardIds = filteredCards.map((c) => c.id);
 
   const [session, dispatch] = useReducer(
     reducer,
@@ -35,7 +46,13 @@ export function StudyPage() {
     (ids) => createSession(ids, 'study'),
   );
 
-  const currentCard = cards.find((c) => c.id === session.currentCardId);
+  // Reset session when category changes
+  useEffect(() => {
+    dispatch({ type: 'RESET', cardIds });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategory]);
+
+  const currentCard = filteredCards.find((c) => c.id === session.currentCardId);
 
   const handleRestart = () => {
     window.location.reload();
@@ -68,6 +85,23 @@ export function StudyPage() {
   return (
     <div className={styles.page}>
       <h1 className={styles.title}>Study</h1>
+      <div className={styles.categorySelector}>
+        <label htmlFor="category" className={styles.label}>
+          Category:
+        </label>
+        <select
+          id="category"
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          className={styles.select}
+        >
+          {categories.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat === 'all' ? 'All Cards' : cat.charAt(0).toUpperCase() + cat.slice(1)}
+            </option>
+          ))}
+        </select>
+      </div>
       <Flashcard
         key={currentCard.id}
         french={currentCard.french}

@@ -13,7 +13,10 @@ export function Layout() {
           Study
         </NavLink>
         <NavLink to="/quiz" className={linkClass}>
-          Quiz
+          Quiz (MC)
+        </NavLink>
+        <NavLink to="/quiz-fill" className={linkClass}>
+          Quiz (Fill)
         </NavLink>
         <NavLink to="/statistics" className={linkClass}>
           Statistics

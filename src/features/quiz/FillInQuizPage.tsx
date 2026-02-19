@@ -1,4 +1,5 @@
 import { useReducer, useState, useEffect } from 'react';
+import type { FormEvent } from 'react';
 import { useAppContext } from '../../context/AppContext';
 import {
   createSession,
@@ -6,10 +7,10 @@ import {
   markWrong,
   isSessionComplete,
 } from '../study/studyEngine';
-import { generateMultipleChoiceOptions } from '../../utils/generateOptions';
+import { validateAnswer } from '../../utils/validateAnswer';
 import { filterCardsByCategory } from '../../utils/filterCardsByCategory';
 import type { SessionState } from '../../types/flashcard';
-import styles from './QuizPage.module.css';
+import styles from './FillInQuizPage.module.css';
 
 type Action =
   | { type: 'CORRECT' }
@@ -23,17 +24,18 @@ function reducer(state: SessionState, action: Action): SessionState {
     case 'WRONG':
       return markWrong(state);
     case 'RESET':
-      return createSession(action.cardIds, 'quiz-mc');
+      return createSession(action.cardIds, 'quiz-fill');
     default:
       return state;
   }
 }
 
-export function QuizPage() {
+export function FillInQuizPage() {
   const { cards } = useAppContext();
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [userAnswer, setUserAnswer] = useState('');
   const [isAnswered, setIsAnswered] = useState(false);
+  const [isCorrect, setIsCorrect] = useState(false);
 
   // Get unique categories
   const categories = ['all', ...Array.from(new Set(cards.map((c) => c.category)))];
@@ -45,14 +47,14 @@ export function QuizPage() {
   const [session, dispatch] = useReducer(
     reducer,
     cardIds,
-    (ids) => createSession(ids, 'quiz-mc'),
+    (ids) => createSession(ids, 'quiz-fill'),
   );
 
   // Reset session when category changes
   useEffect(() => {
     dispatch({ type: 'RESET', cardIds });
     setIsAnswered(false);
-    setSelectedOption(null);
+    setUserAnswer('');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
 
@@ -62,21 +64,20 @@ export function QuizPage() {
     window.location.reload();
   };
 
-  const handleSelectOption = (option: string) => {
-    if (isAnswered) return; // Lock selection after answer
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (isAnswered || !currentCard) return;
 
-    setSelectedOption(option);
+    const correct = validateAnswer(userAnswer, currentCard.german);
+    setIsCorrect(correct);
     setIsAnswered(true);
 
-    // Check if correct
-    const isCorrect = option === currentCard?.german;
-    
     // Dispatch after brief delay for UX
     setTimeout(() => {
-      dispatch({ type: isCorrect ? 'CORRECT' : 'WRONG' });
+      dispatch({ type: correct ? 'CORRECT' : 'WRONG' });
       setIsAnswered(false);
-      setSelectedOption(null);
-    }, 1500);
+      setUserAnswer('');
+    }, 2000);
   };
 
   if (isSessionComplete(session)) {
@@ -107,12 +108,9 @@ export function QuizPage() {
 
   if (!currentCard) return null;
 
-  const options = generateMultipleChoiceOptions(currentCard, filteredCards);
-  const isCorrectAnswer = selectedOption === currentCard.german;
-
   return (
     <div className={styles.page}>
-      <h1 className={styles.title}>Multiple Choice Quiz</h1>
+      <h1 className={styles.title}>Fill-in Quiz</h1>
       
       <div className={styles.categorySelector}>
         <label htmlFor="category" className={styles.label}>
@@ -138,34 +136,30 @@ export function QuizPage() {
         <h2 className={styles.french}>{currentCard.french}</h2>
       </div>
 
-      <div className={styles.options}>
-        {options.map((option) => {
-          const isSelected = selectedOption === option;
-          const isCorrect = option === currentCard.german;
-          
-          let buttonClass = styles.option;
-          if (isAnswered && isSelected) {
-            buttonClass = isCorrectAnswer ? styles.optionCorrect : styles.optionWrong;
-          } else if (isAnswered && isCorrect) {
-            buttonClass = styles.optionCorrect;
-          }
-
-          return (
-            <button
-              key={option}
-              onClick={() => handleSelectOption(option)}
-              className={buttonClass}
-              disabled={isAnswered}
-            >
-              {option}
-            </button>
-          );
-        })}
-      </div>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <input
+          type="text"
+          value={userAnswer}
+          onChange={(e) => setUserAnswer(e.target.value)}
+          placeholder="Type your answer..."
+          className={styles.input}
+          disabled={isAnswered}
+          autoFocus
+        />
+        <button
+          type="submit"
+          className={styles.submitBtn}
+          disabled={isAnswered || !userAnswer.trim()}
+        >
+          Submit
+        </button>
+      </form>
 
       {isAnswered && (
-        <div className={isCorrectAnswer ? styles.feedbackCorrect : styles.feedbackWrong}>
-          {isCorrectAnswer ? '✅ Correct!' : `❌ Wrong! The correct answer is: ${currentCard.german}`}
+        <div className={isCorrect ? styles.feedbackCorrect : styles.feedbackWrong}>
+          {isCorrect
+            ? '✅ Correct!'
+            : `❌ Wrong! The correct answer is: ${currentCard.german}`}
         </div>
       )}
 
@@ -175,6 +169,8 @@ export function QuizPage() {
           {session.remainingCards.length + 1} remaining
         </p>
       </div>
+
+      <p className={styles.hint}>💡 Press Enter to submit your answer</p>
     </div>
   );
 }

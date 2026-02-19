@@ -6,6 +6,38 @@
   padding-top: 2rem;
 }
 
+.categorySelector {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.label {
+  font-size: 1rem;
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+.select {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #475569;
+  background: #1e293b;
+  color: #e2e8f0;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.select:hover {
+  border-color: #6366f1;
+}
+
+.select:focus-visible {
+  outline: 3px solid #6366f1;
+  outline-offset: 2px;
+}
+
 .title {
   font-size: 1.75rem;
   font-weight: 700;
