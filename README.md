@@ -2,6 +2,8 @@
 
 A modern flashcard application for learning French-German vocabulary with multiple study modes, quiz features, and cloud persistence.
 
+**🚀 Live Demo:** https://fra-deu-flashcards.netlify.app
+
 ## Features
 
 - **Study Mode**: Flip cards to learn vocabulary with self-assessment

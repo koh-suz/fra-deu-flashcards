@@ -456,19 +456,19 @@ Preview works correctly
 
 No hardcoded secrets in code
 
-☐ 2️⃣2️⃣ Deploy to Netlify
+☑ 2️⃣2️⃣ Deploy to Netlify
 
 Tasks
 
-☐ Connect GitHub repository to Netlify
+☑ Connect GitHub repository to Netlify
 
-☐ Configure build settings (build command: npm run build, publish dir: dist)
+☑ Configure build settings (build command: npm run build, publish dir: dist)
 
-☐ Set environment variables in Netlify dashboard
+☑ Set environment variables in Netlify dashboard
 
-☐ Trigger initial deployment
+☑ Trigger initial deployment
 
-☐ Verify deployment success
+☑ Verify deployment success
 
 Acceptance Criteria
 
@@ -482,21 +482,21 @@ All features work in production
 
 Database connection works
 
-☐ 2️⃣3️⃣ Post-Deployment Verification
+☑ 2️⃣3️⃣ Post-Deployment Verification
 
 Tasks
 
-☐ Test all app features on live site
+☑ Test all app features on live site
 
-☐ Verify Supabase connection works
+☑ Verify Supabase connection works
 
-☐ Test add card functionality
+☑ Test add card functionality
 
-☐ Verify study/quiz modes work
+☑ Verify study/quiz modes work
 
-☐ Check responsive design
+☑ Check responsive design
 
-☐ Update README with live URL
+☑ Update README with live URL
 
 Acceptance Criteria
 
