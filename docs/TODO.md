@@ -510,12 +510,140 @@ App works on mobile devices
 
 README updated with deployment URL
 
-�� Phase 9 — Polish
-☐ 2️⃣4️⃣ Add Smooth Flip Animation
+🟠 Phase 9 — Refactoring
+
+☐ 2️⃣4️⃣ Fix addCard ID Mismatch (Critical Bug)
+
+Tasks
+
+☐ Remove temp crypto.randomUUID() from AddCardPage
+
+☐ Change addCard to accept Omit<Flashcard, 'id'>
+
+☐ Replace optimistic temp card in state with real Supabase card after save
+
+☐ Fix addCard type signature from void to Promise<void>
+
+Acceptance Criteria
+
+Card in state has same ID as card in Supabase
+
+No duplicate IDs after adding a card
+
+addCard return type matches implementation
+
+☐ 2️⃣5️⃣ Extract Custom Hook from AppContext
+
+Tasks
+
+☐ Create useFlashcards() hook in src/hooks/useFlashcards.ts
+
+☐ Move all async data logic into the hook (fetch, migrate, localStorage sync)
+
+☐ AppContext becomes thin wrapper that calls the hook
+
+☐ Add useCallback to initializeCards to prevent recreation on every render
+
+Acceptance Criteria
+
+AppContext only provides state and actions
+
+useFlashcards handles all data fetching and side effects
+
+No ESLint hook warnings
+
+☐ 2️⃣6️⃣ Remove Duplicate Validation in supabaseMCP.ts
+
+Tasks
+
+☐ Remove inline validation from createCard in supabaseMCP.ts
+
+☐ Validation is caller's responsibility (validateNewCard already handles it)
+
+Acceptance Criteria
+
+No duplicate validation logic across files
+
+validateNewCard.ts is the single source of truth for validation
+
+☐ 2️⃣7️⃣ Add Submission Loading State to AddCard Form
+
+Tasks
+
+☐ Add isSubmitting state to AddCardPage
+
+☐ Disable submit button during Supabase save
+
+☐ Show loading indicator on button while submitting
+
+☐ Handle and display submission errors in the form
+
+Acceptance Criteria
+
+Button disabled while saving
+
+User gets visual feedback during submission
+
+Errors from Supabase shown inline in form
+
+☐ 2️⃣8️⃣ Move Error Toast to Own Component
+
+Tasks
+
+☐ Create src/components/ErrorToast/ErrorToast.tsx
+
+☐ Create ErrorToast.module.css
+
+☐ Remove inline styles from App.tsx
+
+☐ Add dismiss button to error toast
+
+Acceptance Criteria
+
+No inline styles in App.tsx
+
+Error toast dismissible by user
+
+Consistent styling with rest of app
+
+☐ 2️⃣9️⃣ Add Migration Flag
+
+Tasks
+
+☐ Set localStorage flag after successful migration
+
+☐ Skip migration step if flag exists
+
+Acceptance Criteria
+
+Migration does not re-run on every load when Supabase is empty
+
+Flag stored in localStorage after first successful migration
+
+☐ 3️⃣0️⃣ Category Autocomplete
+
+Tasks
+
+☐ Replace free-text category input with autocomplete
+
+☐ Show existing categories as suggestions while typing
+
+☐ Allow typing a new category not in the list
+
+Acceptance Criteria
+
+Existing categories suggested as user types
+
+New categories can still be entered freely
+
+No inconsistent casing issues (stored lowercase)
+
+🔴 Phase 10 — Polish
+☐ 3️⃣1️⃣ Add Smooth Flip Animation
 
 Manual verification only.
 
-☐ 2️⃣5️⃣ Accessibility Improvements
+☐ 3️⃣2️⃣ Accessibility Improvements
 
 Manual checks:
 
