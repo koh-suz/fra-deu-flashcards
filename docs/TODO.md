@@ -638,12 +638,142 @@ New categories can still be entered freely
 
 No inconsistent casing issues (stored lowercase)
 
-🔴 Phase 10 — Polish
-☐ 3️⃣1️⃣ Add Smooth Flip Animation
+� Phase 10 — User Authentication (Supabase Auth)
+
+☐ 3️⃣1️⃣ Setup Supabase Auth
+
+Tasks
+
+☐ Enable email/password auth in Supabase project
+
+☐ Add user_id column to flashcards table (FK to auth.users)
+
+☐ Set up Row Level Security (RLS) — users can only access their own cards
+
+☐ Test auth and RLS via MCP tools
+
+Acceptance Criteria
+
+Email/password auth enabled in Supabase
+
+flashcards table has user_id column
+
+RLS policy: SELECT/INSERT/UPDATE/DELETE only for card owner
+
+Unauthenticated requests return no data
+
+☐ 3️⃣2️⃣ Create Auth UI
+
+Tasks
+
+☐ Create LoginPage component
+
+☐ Create SignupPage component
+
+☐ Add /login and /signup routes
+
+☐ Add logout button to navigation
+
+Acceptance Criteria
+
+User can sign up with email and password
+
+User can log in with valid credentials
+
+Errors shown for invalid credentials
+
+Logout clears session and redirects to login
+
+☐ 3️⃣3️⃣ Integrate Auth with App
+
+Tasks
+
+☐ Create useAuth() hook with Supabase session management
+
+☐ Protect all routes — redirect to /login if not authenticated
+
+☐ Pass user_id when creating cards
+
+☐ Load only the authenticated user's cards on init
+
+Acceptance Criteria
+
+Unauthenticated users redirected to login
+
+Cards are scoped per user
+
+New cards saved with correct user_id
+
+Session persists across page reload
+
+🟠 Phase 11 — Card Management
+
+☐ 3️⃣4️⃣ Cards Management Page
+
+Tasks
+
+☐ Create /cards route and CardsPage component
+
+☐ List all cards with French, German, and category columns
+
+☐ Add navigation link to card list
+
+Acceptance Criteria
+
+All cards visible in a list view
+
+Page accessible from navigation
+
+Cards displayed with all fields
+
+☐ 3️⃣5️⃣ Edit Card
+
+Tasks
+
+☐ Add edit button per card in CardsPage
+
+☐ Inline edit form pre-filled with card data
+
+☐ Update card via updateCard() in Supabase
+
+☐ Expose updateCard in useFlashcards hook and AppContext
+
+Acceptance Criteria
+
+User can edit French, German, and category fields
+
+Changes saved to Supabase and reflected in state immediately
+
+Validation applied before saving
+
+Cancel button discards changes
+
+☐ 3️⃣6️⃣ Delete Card
+
+Tasks
+
+☐ Add delete button per card in CardsPage
+
+☐ Confirmation step before deleting
+
+☐ Delete card via deleteCard() in Supabase
+
+☐ Expose deleteCard in useFlashcards hook and AppContext
+
+Acceptance Criteria
+
+User prompted to confirm before deletion
+
+Card removed from Supabase and local state
+
+Button disabled after first click to prevent double-delete
+
+🔴 Phase 12 — Polish
+☐ 3️⃣7️⃣ Add Smooth Flip Animation
 
 Manual verification only.
 
-☐ 3️⃣2️⃣ Accessibility Improvements
+☐ 3️⃣8️⃣ Accessibility Improvements
 
 Manual checks:
 
