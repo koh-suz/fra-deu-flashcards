@@ -512,17 +512,17 @@ README updated with deployment URL
 
 🟠 Phase 9 — Refactoring
 
-☐ 2️⃣4️⃣ Fix addCard ID Mismatch (Critical Bug)
+☑ 2️⃣4️⃣ Fix addCard ID Mismatch (Critical Bug)
 
 Tasks
 
-☐ Remove temp crypto.randomUUID() from AddCardPage
+☑ Remove temp crypto.randomUUID() from AddCardPage
 
-☐ Change addCard to accept Omit<Flashcard, 'id'>
+☑ Change addCard to accept Omit<Flashcard, 'id'>
 
-☐ Replace optimistic temp card in state with real Supabase card after save
+☑ Replace optimistic temp card in state with real Supabase card after save
 
-☐ Fix addCard type signature from void to Promise<void>
+☑ Fix addCard type signature from void to Promise<void>
 
 Acceptance Criteria
 
@@ -532,17 +532,17 @@ No duplicate IDs after adding a card
 
 addCard return type matches implementation
 
-☐ 2️⃣5️⃣ Extract Custom Hook from AppContext
+☑ 2️⃣5️⃣ Extract Custom Hook from AppContext
 
 Tasks
 
-☐ Create useFlashcards() hook in src/hooks/useFlashcards.ts
+☑ Create useFlashcards() hook in src/hooks/useFlashcards.ts
 
-☐ Move all async data logic into the hook (fetch, migrate, localStorage sync)
+☑ Move all async data logic into the hook (fetch, migrate, localStorage sync)
 
-☐ AppContext becomes thin wrapper that calls the hook
+☑ AppContext becomes thin wrapper that calls the hook
 
-☐ Add useCallback to initializeCards to prevent recreation on every render
+☑ Add useCallback to initializeCards to prevent recreation on every render
 
 Acceptance Criteria
 
@@ -552,13 +552,13 @@ useFlashcards handles all data fetching and side effects
 
 No ESLint hook warnings
 
-☐ 2️⃣6️⃣ Remove Duplicate Validation in supabaseMCP.ts
+☑ 2️⃣6️⃣ Remove Duplicate Validation in supabaseMCP.ts
 
 Tasks
 
-☐ Remove inline validation from createCard in supabaseMCP.ts
+☑ Remove inline validation from createCard in supabaseMCP.ts
 
-☐ Validation is caller's responsibility (validateNewCard already handles it)
+☑ Validation is caller's responsibility (validateNewCard already handles it)
 
 Acceptance Criteria
 
@@ -566,17 +566,17 @@ No duplicate validation logic across files
 
 validateNewCard.ts is the single source of truth for validation
 
-☐ 2️⃣7️⃣ Add Submission Loading State to AddCard Form
+☑ 2️⃣7️⃣ Add Submission Loading State to AddCard Form
 
 Tasks
 
-☐ Add isSubmitting state to AddCardPage
+☑ Add isSubmitting state to AddCardPage
 
-☐ Disable submit button during Supabase save
+☑ Disable submit button during Supabase save
 
-☐ Show loading indicator on button while submitting
+☑ Show loading indicator on button while submitting
 
-☐ Handle and display submission errors in the form
+☑ Handle and display submission errors in the form
 
 Acceptance Criteria
 
@@ -586,17 +586,17 @@ User gets visual feedback during submission
 
 Errors from Supabase shown inline in form
 
-☐ 2️⃣8️⃣ Move Error Toast to Own Component
+☑ 2️⃣8️⃣ Move Error Toast to Own Component
 
 Tasks
 
-☐ Create src/components/ErrorToast/ErrorToast.tsx
+☑ Create src/components/ErrorToast/ErrorToast.tsx
 
-☐ Create ErrorToast.module.css
+☑ Create ErrorToast.module.css
 
-☐ Remove inline styles from App.tsx
+☑ Remove inline styles from App.tsx
 
-☐ Add dismiss button to error toast
+☑ Add dismiss button to error toast
 
 Acceptance Criteria
 
@@ -606,13 +606,13 @@ Error toast dismissible by user
 
 Consistent styling with rest of app
 
-☐ 2️⃣9️⃣ Add Migration Flag
+☑ 2️⃣9️⃣ Add Migration Flag
 
 Tasks
 
-☐ Set localStorage flag after successful migration
+☑ Set localStorage flag after successful migration
 
-☐ Skip migration step if flag exists
+☑ Skip migration step if flag exists
 
 Acceptance Criteria
 
@@ -620,15 +620,15 @@ Migration does not re-run on every load when Supabase is empty
 
 Flag stored in localStorage after first successful migration
 
-☐ 3️⃣0️⃣ Category Autocomplete
+☑ 3️⃣0️⃣ Category Autocomplete
 
 Tasks
 
-☐ Replace free-text category input with autocomplete
+☑ Replace free-text category input with autocomplete
 
-☐ Show existing categories as suggestions while typing
+☑ Show existing categories as suggestions while typing
 
-☐ Allow typing a new category not in the list
+☑ Allow typing a new category not in the list
 
 Acceptance Criteria
 

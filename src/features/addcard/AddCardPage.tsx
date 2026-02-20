@@ -6,7 +6,8 @@ import type { NewCardData } from '../../utils/validateNewCard';
 import styles from './AddCardPage.module.css';
 
 export function AddCardPage() {
-  const { addCard } = useAppContext();
+  const { addCard, cards } = useAppContext();
+  const existingCategories = Array.from(new Set(cards.map((c) => c.category))).sort();
   const [formData, setFormData] = useState<NewCardData>({
     french: '',
     german: '',
@@ -14,10 +15,13 @@ export function AddCardPage() {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [success, setSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setSuccess(false);
+    setSubmitError(null);
 
     const result = validateNewCard(formData);
 
@@ -26,18 +30,23 @@ export function AddCardPage() {
       return;
     }
 
-    // Generate unique ID
     const newCard = {
-      id: crypto.randomUUID(),
       french: formData.french.trim(),
       german: formData.german.trim(),
       category: formData.category.trim().toLowerCase(),
     };
 
-    await addCard(newCard);
-    setErrors({});
-    setSuccess(true);
-    setFormData({ french: '', german: '', category: '' });
+    try {
+      setIsSubmitting(true);
+      await addCard(newCard);
+      setErrors({});
+      setSuccess(true);
+      setFormData({ french: '', german: '', category: '' });
+    } catch {
+      setSubmitError('Failed to save card. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -90,6 +99,7 @@ export function AddCardPage() {
           <input
             type="text"
             id="category"
+            list="category-suggestions"
             value={formData.category}
             onChange={(e) =>
               setFormData((prev) => ({ ...prev, category: e.target.value }))
@@ -97,14 +107,23 @@ export function AddCardPage() {
             className={errors.category ? styles.inputError : styles.input}
             placeholder="animals"
           />
+          <datalist id="category-suggestions">
+            {existingCategories.map((cat) => (
+              <option key={cat} value={cat} />
+            ))}
+          </datalist>
           {errors.category && (
             <span className={styles.error}>{errors.category}</span>
           )}
         </div>
 
-        <button type="submit" className={styles.submitBtn}>
-          Add Card
+        <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
+          {isSubmitting ? 'Saving...' : 'Add Card'}
         </button>
+
+        {submitError && (
+          <div className={styles.submitError}>{submitError}</div>
+        )}
 
         {success && (
           <div className={styles.success}>

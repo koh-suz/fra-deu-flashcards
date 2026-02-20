@@ -43,11 +43,6 @@ export async function fetchCards(): Promise<Flashcard[]> {
  */
 export async function createCard(card: Omit<Flashcard, 'id'>): Promise<Flashcard> {
   try {
-    // Validate input
-    if (!card.french.trim() || !card.german.trim() || !card.category.trim()) {
-      throw new Error('All fields are required');
-    }
-
     const { data, error } = await supabase
       .from('flashcards')
       .insert({
