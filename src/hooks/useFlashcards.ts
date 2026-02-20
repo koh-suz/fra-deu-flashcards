@@ -3,6 +3,7 @@ import type { Flashcard } from '../types/flashcard';
 import { initialCards } from '../data/initialCards';
 import { saveCards, loadCards } from '../utils/storage';
 import { fetchCards, createCard } from '../utils/supabaseMCP';
+import { supabase } from '../lib/supabase';
 
 const MIGRATION_FLAG_KEY = 'flashcards_migrated';
 
@@ -64,6 +65,16 @@ export function useFlashcards() {
 
   useEffect(() => {
     initializeCards();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event === 'SIGNED_IN' || event === 'SIGNED_OUT') {
+        setCards([]);
+        setIsInitialized(false);
+        initializeCards();
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, [initializeCards]);
 
   useEffect(() => {

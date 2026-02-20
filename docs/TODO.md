@@ -640,17 +640,17 @@ No inconsistent casing issues (stored lowercase)
 
 � Phase 10 — User Authentication (Supabase Auth)
 
-☐ 3️⃣1️⃣ Setup Supabase Auth
+☑ 3️⃣1️⃣ Setup Supabase Auth
 
 Tasks
 
-☐ Enable email/password auth in Supabase project
+☑ Enable email/password auth in Supabase project
 
-☐ Add user_id column to flashcards table (FK to auth.users)
+☑ Add user_id column to flashcards table (FK to auth.users)
 
-☐ Set up Row Level Security (RLS) — users can only access their own cards
+☑ Set up Row Level Security (RLS) — users can only access their own cards
 
-☐ Test auth and RLS via MCP tools
+☑ Test auth and RLS via MCP tools
 
 Acceptance Criteria
 
@@ -662,17 +662,17 @@ RLS policy: SELECT/INSERT/UPDATE/DELETE only for card owner
 
 Unauthenticated requests return no data
 
-☐ 3️⃣2️⃣ Create Auth UI
+☑ 3️⃣2️⃣ Create Auth UI
 
 Tasks
 
-☐ Create LoginPage component
+☑ Create LoginPage component
 
-☐ Create SignupPage component
+☑ Create SignupPage component
 
-☐ Add /login and /signup routes
+☑ Add /login and /signup routes
 
-☐ Add logout button to navigation
+☑ Add logout button to navigation
 
 Acceptance Criteria
 
@@ -684,17 +684,17 @@ Errors shown for invalid credentials
 
 Logout clears session and redirects to login
 
-☐ 3️⃣3️⃣ Integrate Auth with App
+☑ 3️⃣3️⃣ Integrate Auth with App
 
 Tasks
 
-☐ Create useAuth() hook with Supabase session management
+☑ Create useAuth() hook with Supabase session management
 
-☐ Protect all routes — redirect to /login if not authenticated
+☑ Protect all routes — redirect to /login if not authenticated
 
-☐ Pass user_id when creating cards
+☑ Pass user_id when creating cards
 
-☐ Load only the authenticated user's cards on init
+☑ Load only the authenticated user's cards on init
 
 Acceptance Criteria
 

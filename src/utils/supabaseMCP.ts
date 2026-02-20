@@ -1,12 +1,5 @@
-import { createClient } from '@supabase/supabase-js';
 import type { Flashcard } from '../types/flashcard';
-
-// Supabase configuration
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || 'https://ucptiohyuhlfgsilsvcq.supabase.co';
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
-
-// Initialize Supabase client
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+import { supabase } from '../lib/supabase';
 
 /**
  * Fetch all flashcards from Supabase database
@@ -43,12 +36,15 @@ export async function fetchCards(): Promise<Flashcard[]> {
  */
 export async function createCard(card: Omit<Flashcard, 'id'>): Promise<Flashcard> {
   try {
+    const { data: { user } } = await supabase.auth.getUser();
+
     const { data, error } = await supabase
       .from('flashcards')
       .insert({
         french: card.french.trim(),
         german: card.german.trim(),
         category: card.category.trim(),
+        user_id: user?.id,
       })
       .select('id, french, german, category')
       .single();
