@@ -708,15 +708,15 @@ Session persists across page reload
 
 🟠 Phase 11 — Card Management
 
-☐ 3️⃣4️⃣ Cards Management Page
+☑ 3️⃣4️⃣ Cards Management Page
 
 Tasks
 
-☐ Create /cards route and CardsPage component
+☑ Create /cards route and CardsPage component
 
-☐ List all cards with French, German, and category columns
+☑ List all cards with French, German, and category columns
 
-☐ Add navigation link to card list
+☑ Add navigation link to card list
 
 Acceptance Criteria
 
@@ -726,17 +726,17 @@ Page accessible from navigation
 
 Cards displayed with all fields
 
-☐ 3️⃣5️⃣ Edit Card
+☑ 3️⃣5️⃣ Edit Card
 
 Tasks
 
-☐ Add edit button per card in CardsPage
+☑ Add edit button per card in CardsPage
 
-☐ Inline edit form pre-filled with card data
+☑ Inline edit form pre-filled with card data
 
-☐ Update card via updateCard() in Supabase
+☑ Update card via updateCard() in Supabase
 
-☐ Expose updateCard in useFlashcards hook and AppContext
+☑ Expose updateCard in useFlashcards hook and AppContext
 
 Acceptance Criteria
 
@@ -748,17 +748,17 @@ Validation applied before saving
 
 Cancel button discards changes
 
-☐ 3️⃣6️⃣ Delete Card
+☑ 3️⃣6️⃣ Delete Card
 
 Tasks
 
-☐ Add delete button per card in CardsPage
+☑ Add delete button per card in CardsPage
 
-☐ Confirmation step before deleting
+☑ Confirmation step before deleting
 
-☐ Delete card via deleteCard() in Supabase
+☑ Delete card via deleteCard() in Supabase
 
-☐ Expose deleteCard in useFlashcards hook and AppContext
+☑ Expose deleteCard in useFlashcards hook and AppContext
 
 Acceptance Criteria
 

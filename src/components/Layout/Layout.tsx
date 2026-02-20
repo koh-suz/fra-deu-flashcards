@@ -23,6 +23,7 @@ export function Layout() {
         <NavLink to="/quiz-fill" className={linkClass}>Quiz (Fill)</NavLink>
         <NavLink to="/statistics" className={linkClass}>Statistics</NavLink>
         <NavLink to="/add-card" className={linkClass}>Add Card</NavLink>
+        <NavLink to="/cards" className={linkClass}>My Cards</NavLink>
         <div className={styles.userSection}>
           <span className={styles.userEmail}>{user?.email}</span>
           <button className={styles.logoutBtn} onClick={handleLogout}>

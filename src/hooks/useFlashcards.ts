@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import type { Flashcard } from '../types/flashcard';
 import { initialCards } from '../data/initialCards';
 import { saveCards, loadCards } from '../utils/storage';
-import { fetchCards, createCard } from '../utils/supabaseMCP';
+import { fetchCards, createCard, updateCard, deleteCard } from '../utils/supabaseMCP';
 import { supabase } from '../lib/supabase';
 
 const MIGRATION_FLAG_KEY = 'flashcards_migrated';
@@ -95,9 +95,29 @@ export function useFlashcards() {
     }
   };
 
+  const editCard = async (id: string, updates: { french?: string; german?: string; category?: string }): Promise<void> => {
+    try {
+      const saved = await updateCard(id, updates);
+      setCards((prev) => prev.map((c) => (c.id === id ? saved : c)));
+    } catch (err) {
+      console.error('Failed to update card:', err);
+      setError('Failed to update card.');
+    }
+  };
+
+  const removeCard = async (id: string): Promise<void> => {
+    try {
+      await deleteCard(id);
+      setCards((prev) => prev.filter((c) => c.id !== id));
+    } catch (err) {
+      console.error('Failed to delete card:', err);
+      setError('Failed to delete card.');
+    }
+  };
+
   const retry = () => {
     initializeCards();
   };
 
-  return { cards, isLoading, error, addCard, retry };
+  return { cards, isLoading, error, addCard, editCard, removeCard, retry };
 }

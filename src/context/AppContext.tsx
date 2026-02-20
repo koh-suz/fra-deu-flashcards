@@ -6,6 +6,8 @@ import { useFlashcards } from '../hooks/useFlashcards';
 interface AppContextType {
   cards: Flashcard[];
   addCard: (card: Omit<Flashcard, 'id'>) => Promise<void>;
+  editCard: (id: string, updates: { french?: string; german?: string; category?: string }) => Promise<void>;
+  removeCard: (id: string) => Promise<void>;
   isLoading: boolean;
   error: string | null;
   retry: () => void;

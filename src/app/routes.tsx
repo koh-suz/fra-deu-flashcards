@@ -5,6 +5,7 @@ import { QuizPage } from '../features/quiz/QuizPage';
 import { FillInQuizPage } from '../features/quiz/FillInQuizPage';
 import { StatisticsPage } from '../features/statistics/StatisticsPage';
 import { AddCardPage } from '../features/addcard/AddCardPage';
+import { CardsPage } from '../features/cards/CardsPage';
 import { LoginPage } from '../features/auth/LoginPage';
 import { SignupPage } from '../features/auth/SignupPage';
 import { ProtectedRoute } from '../components/ProtectedRoute/ProtectedRoute';
@@ -28,6 +29,7 @@ export const router = createBrowserRouter([
       { path: 'quiz-fill', element: <FillInQuizPage /> },
       { path: 'statistics', element: <StatisticsPage /> },
       { path: 'add-card', element: <AddCardPage /> },
+      { path: 'cards', element: <CardsPage /> },
     ],
   },
 ]);
