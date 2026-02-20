@@ -777,11 +777,45 @@ Manual verification only.
 
 Manual checks:
 
-☐ Keyboard navigation
+Study / Quiz
 
-☐ Enter submits
+☐ Keyboard navigation works on flashcard
 
-☐ Focus visible
+☐ Enter flips card
+
+☐ Focus visible on all interactive elements
+
+Auth pages (LoginPage, SignupPage)
+
+☐ Enter submits login / signup form
+
+☐ Error messages readable by screen readers (aria-live)
+
+☐ Focus moves to first field on page load
+
+CardsPage
+
+☐ Edit and Delete buttons reachable via keyboard
+
+☐ Focus moves into edit form when opened
+
+☐ Focus returns to card row after cancel or save
+
+Navigation
+
+☐ Logout button has visible focus ring
+
+☐ 3️⃣9️⃣ Responsive Design Check
+
+Manual checks:
+
+☐ Navigation does not overflow on narrow screens (tablet / mobile)
+
+☐ Auth pages readable and usable on mobile
+
+☐ CardsPage edit form columns stack correctly on narrow screens
+
+☐ Study and Quiz pages usable on mobile
 
 🎯 Final Definition of Done
 
@@ -795,6 +829,8 @@ You are done when:
 
 ☐ Validation covered
 
+☐ editCard and removeCard covered in useFlashcards tests
+
 ☐ ESLint passes with zero errors
 
 ☐ No React hook warnings
@@ -802,3 +838,7 @@ You are done when:
 ☐ No TypeScript errors
 
 ☐ App works end-to-end
+
+☐ Auth flow works on production (signup email redirects to Netlify URL)
+
+☐ Cards are scoped per user in production
