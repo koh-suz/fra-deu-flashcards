@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useAppContext } from '../../context/AppContext';
 import { validateNewCard } from '../../utils/validateNewCard';
 import type { Flashcard } from '../../types/flashcard';
@@ -18,17 +18,22 @@ export function CardsPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+  const editBtnRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const firstEditInputRef = useRef<HTMLInputElement | null>(null);
 
   const startEdit = (card: Flashcard) => {
     setEditingId(card.id);
     setEditState({ french: card.french, german: card.german, category: card.category });
     setEditErrors({});
     setConfirmDeleteId(null);
+    setTimeout(() => firstEditInputRef.current?.focus(), 0);
   };
 
   const cancelEdit = () => {
+    const id = editingId;
     setEditingId(null);
     setEditErrors({});
+    if (id) setTimeout(() => editBtnRefs.current[id]?.focus(), 0);
   };
 
   const saveEdit = async () => {
@@ -37,14 +42,16 @@ export function CardsPage() {
       setEditErrors(result.errors);
       return;
     }
+    const id = editingId!;
     setIsSaving(true);
-    await editCard(editingId!, {
+    await editCard(id, {
       french: editState.french.trim(),
       german: editState.german.trim(),
       category: editState.category.trim().toLowerCase(),
     });
     setIsSaving(false);
     setEditingId(null);
+    setTimeout(() => editBtnRefs.current[id]?.focus(), 0);
   };
 
   const handleDeleteClick = (id: string) => {
@@ -77,6 +84,7 @@ export function CardsPage() {
                   <div className={styles.editField}>
                     <label className={styles.editLabel}>French</label>
                     <input
+                      ref={firstEditInputRef}
                       className={editErrors.french ? styles.inputError : styles.input}
                       value={editState.french}
                       onChange={(e) => setEditState((s) => ({ ...s, french: e.target.value }))}
@@ -136,7 +144,11 @@ export function CardsPage() {
                 <span className={styles.cell}>{card.german}</span>
                 <span className={styles.categoryBadge}>{card.category}</span>
                 <div className={styles.actions}>
-                  <button className={styles.editBtn} onClick={() => startEdit(card)}>Edit</button>
+                  <button
+                    ref={(el) => { editBtnRefs.current[card.id] = el; }}
+                    className={styles.editBtn}
+                    onClick={() => startEdit(card)}
+                  >Edit</button>
                   <button className={styles.deleteBtn} onClick={() => handleDeleteClick(card.id)}>Delete</button>
                 </div>
               </div>

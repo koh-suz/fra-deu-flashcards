@@ -67,6 +67,7 @@ export function SignupPage() {
               placeholder="you@example.com"
               required
               autoComplete="email"
+              autoFocus
             />
           </div>
           <div className={styles.field}>
@@ -82,7 +83,7 @@ export function SignupPage() {
               autoComplete="new-password"
             />
           </div>
-          {error && <div className={styles.error}>{error}</div>}
+          {error && <div className={styles.error} role="alert" aria-live="polite">{error}</div>}
           <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
             {isSubmitting ? 'Creating account...' : 'Sign Up'}
           </button>

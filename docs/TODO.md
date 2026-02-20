@@ -769,53 +769,53 @@ Card removed from Supabase and local state
 Button disabled after first click to prevent double-delete
 
 🔴 Phase 12 — Polish
-☐ 3️⃣7️⃣ Add Smooth Flip Animation
+☑ 3️⃣7️⃣ Add Smooth Flip Animation
 
 Manual verification only.
 
-☐ 3️⃣8️⃣ Accessibility Improvements
+☑ 3️⃣8️⃣ Accessibility Improvements
 
 Manual checks:
 
 Study / Quiz
 
-☐ Keyboard navigation works on flashcard
+☑ Keyboard navigation works on flashcard
 
-☐ Enter flips card
+☑ Enter flips card
 
-☐ Focus visible on all interactive elements
+☑ Focus visible on all interactive elements
 
 Auth pages (LoginPage, SignupPage)
 
-☐ Enter submits login / signup form
+☑ Enter submits login / signup form
 
-☐ Error messages readable by screen readers (aria-live)
+☑ Error messages readable by screen readers (aria-live)
 
-☐ Focus moves to first field on page load
+☑ Focus moves to first field on page load
 
 CardsPage
 
-☐ Edit and Delete buttons reachable via keyboard
+☑ Edit and Delete buttons reachable via keyboard
 
-☐ Focus moves into edit form when opened
+☑ Focus moves into edit form when opened
 
-☐ Focus returns to card row after cancel or save
+☑ Focus returns to card row after cancel or save
 
 Navigation
 
-☐ Logout button has visible focus ring
+☑ Logout button has visible focus ring
 
-☐ 3️⃣9️⃣ Responsive Design Check
+☑ 3️⃣9️⃣ Responsive Design Check
 
 Manual checks:
 
-☐ Navigation does not overflow on narrow screens (tablet / mobile)
+☑ Navigation does not overflow on narrow screens (tablet / mobile)
 
-☐ Auth pages readable and usable on mobile
+☑ Auth pages readable and usable on mobile
 
-☐ CardsPage edit form columns stack correctly on narrow screens
+☑ CardsPage edit form columns stack correctly on narrow screens
 
-☐ Study and Quiz pages usable on mobile
+☑ Study and Quiz pages usable on mobile
 
 🎯 Final Definition of Done
 

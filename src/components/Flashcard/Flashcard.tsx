@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import styles from './Flashcard.module.css';
 
 interface FlashcardProps {
@@ -10,6 +10,7 @@ interface FlashcardProps {
 
 export function Flashcard({ french, german, onCorrect, onWrong }: FlashcardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
+  const sceneRef = useRef<HTMLButtonElement>(null);
 
   const handleFlip = () => {
     if (!isFlipped) setIsFlipped(true);
@@ -18,23 +19,28 @@ export function Flashcard({ french, german, onCorrect, onWrong }: FlashcardProps
   const handleCorrect = () => {
     setIsFlipped(false);
     onCorrect();
+    sceneRef.current?.focus();
   };
 
   const handleWrong = () => {
     setIsFlipped(false);
     onWrong();
+    sceneRef.current?.focus();
   };
 
   return (
     <div className={styles.wrapper}>
       <button
+        ref={sceneRef}
         className={styles.scene}
         onClick={handleFlip}
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleFlip(); }}
         aria-label={
           isFlipped
             ? `Translation: ${german}`
-            : `French word: ${french}. Click to reveal translation.`
+            : `French word: ${french}. Press Enter or Space to reveal translation.`
         }
+        aria-pressed={isFlipped}
         disabled={isFlipped}
       >
         <div className={`${styles.card} ${isFlipped ? styles.flipped : ''}`}>

@@ -42,6 +42,7 @@ export function LoginPage() {
               placeholder="you@example.com"
               required
               autoComplete="email"
+              autoFocus
             />
           </div>
           <div className={styles.field}>
@@ -57,7 +58,7 @@ export function LoginPage() {
               autoComplete="current-password"
             />
           </div>
-          {error && <div className={styles.error}>{error}</div>}
+          {error && <div className={styles.error} role="alert" aria-live="polite">{error}</div>}
           <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
             {isSubmitting ? 'Logging in...' : 'Log In'}
           </button>
