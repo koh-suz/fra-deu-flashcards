@@ -433,12 +433,89 @@ Network failures don't crash app
 
 Good UX during async operations
 
-🔴 Phase 8 — Polish
-☐ 2️⃣1️⃣ Add Smooth Flip Animation
+� Phase 8 — Netlify Deployment
+☑ 2️⃣1️⃣ Prepare for Deployment
+
+Tasks
+
+☑ Create .env.example file with template variables
+
+☑ Add deployment documentation to README
+
+☑ Verify build works locally (npm run build)
+
+☑ Test production build locally (npm run preview)
+
+Acceptance Criteria
+
+.env.example created with all required vars
+
+Build completes without errors
+
+Preview works correctly
+
+No hardcoded secrets in code
+
+☐ 2️⃣2️⃣ Deploy to Netlify
+
+Tasks
+
+☐ Connect GitHub repository to Netlify
+
+☐ Configure build settings (build command: npm run build, publish dir: dist)
+
+☐ Set environment variables in Netlify dashboard
+
+☐ Trigger initial deployment
+
+☐ Verify deployment success
+
+Acceptance Criteria
+
+Site deploys successfully
+
+Environment variables configured
+
+Live URL accessible
+
+All features work in production
+
+Database connection works
+
+☐ 2️⃣3️⃣ Post-Deployment Verification
+
+Tasks
+
+☐ Test all app features on live site
+
+☐ Verify Supabase connection works
+
+☐ Test add card functionality
+
+☐ Verify study/quiz modes work
+
+☐ Check responsive design
+
+☐ Update README with live URL
+
+Acceptance Criteria
+
+All features functional on live site
+
+No console errors
+
+Data persists correctly
+
+App works on mobile devices
+
+README updated with deployment URL
+
+�� Phase 9 — Polish
+☐ 2️⃣4️⃣ Add Smooth Flip Animation
 
 Manual verification only.
 
-☐ 2️⃣2️⃣ Accessibility Improvements
+☐ 2️⃣5️⃣ Accessibility Improvements
 
 Manual checks:
 
