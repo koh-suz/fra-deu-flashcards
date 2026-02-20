@@ -1,28 +1,31 @@
 # French-German Flashcards App
 
-A modern flashcard application for learning French-German vocabulary with multiple study modes, quiz features, and cloud persistence.
+A modern flashcard application for learning French-German vocabulary. Features user accounts, multiple study modes, quiz types, card management, and cloud persistence per user.
 
 **🚀 Live Demo:** https://fra-deu-flashcards.netlify.app
 
 ## Features
 
-- **Study Mode**: Flip cards to learn vocabulary with self-assessment
+- **User Accounts**: Sign up and log in with email/password — each user's cards are private
+- **Study Mode**: 3D flip cards with Wrong/Correct self-assessment
 - **Multiple Choice Quiz**: Test knowledge with 3-option multiple choice questions
 - **Fill-in Quiz**: Type answers for strict validation practice
 - **Statistics Dashboard**: Track progress with card counts and category breakdown
-- **Add Cards**: Create custom flashcards with validation
-- **Cloud Persistence**: Data saved to Supabase database with offline localStorage fallback
+- **Add Cards**: Create custom flashcards with category autocomplete and validation
+- **Manage Cards**: Edit or delete cards from a dedicated management page
+- **Cloud Persistence**: Cards saved to Supabase with Row Level Security per user
 - **Category Filtering**: Filter cards by category across all modes
-- **Responsive Design**: Works on desktop and mobile devices
+- **Responsive Design**: Works on desktop, tablet, and mobile
 
 ## Tech Stack
 
 - **Frontend**: React 19 + TypeScript + Vite
 - **Routing**: React Router v7
-- **Database**: Supabase (PostgreSQL)
+- **Auth & Database**: Supabase (PostgreSQL + Auth)
 - **Styling**: CSS Modules
-- **Testing**: Vitest + React Testing Library
+- **Testing**: Vitest
 - **Linting**: ESLint with strict TypeScript rules
+- **Deployment**: Netlify
 
 ## Setup
 
@@ -49,89 +52,97 @@ npm install
 cp .env.example .env
 ```
 
-Edit `.env` and add your Supabase credentials:
-- `VITE_SUPABASE_URL`: Your Supabase project URL
-- `VITE_SUPABASE_ANON_KEY`: Your Supabase anon/public key
+Edit `.env` and fill in your Supabase credentials:
+```
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key
+```
 
-4. Run development server:
+4. Run the development server:
 ```bash
 npm run dev
 ```
 
-Visit `http://localhost:5173`
+Visit `http://localhost:5173` and sign up for an account.
+
+### Supabase Configuration
+
+In the Supabase dashboard under **Authentication → URL Configuration**:
+
+- **Site URL**: `https://your-netlify-site.netlify.app` (or `http://localhost:5173` for local dev)
+- **Redirect URLs**: add `https://your-netlify-site.netlify.app/**` and `http://localhost:5173/**`
 
 ## Deployment to Netlify
 
-### Prerequisites
-- Netlify account
-- GitHub repository connected
-
-### Steps
-
-1. **Build the app locally** (optional, to verify):
-```bash
-npm run build
-npm run preview
-```
-
-2. **Deploy to Netlify**:
-   - Go to [Netlify](https://app.netlify.com/)
-   - Click "Add new site" → "Import an existing project"
-   - Connect your GitHub repository
-   - Configure build settings:
-     - **Build command**: `npm run build`
-     - **Publish directory**: `dist`
-   - Add environment variables:
-     - `VITE_SUPABASE_URL`: Your Supabase project URL
-     - `VITE_SUPABASE_ANON_KEY`: Your Supabase anon key
-   - Click "Deploy site"
-
-3. **Verify deployment**:
-   - Visit your Netlify URL
-   - Test all features (study, quiz, add card)
-   - Verify data persists correctly
+1. Connect your GitHub repository to Netlify
+2. Set build settings:
+   - **Build command**: `npm run build`
+   - **Publish directory**: `dist`
+3. Add environment variables in the Netlify dashboard:
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_ANON_KEY`
+4. Deploy — Netlify auto-deploys on every push to `main`
 
 ## Available Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build locally
-- `npm run lint` - Run ESLint
-- `npm run test` - Run tests
+- `npm run dev` — Start development server
+- `npm run build` — Build for production
+- `npm run preview` — Preview production build locally
+- `npm run lint` — Run ESLint
+- `npm run test` — Run tests
 
 ## Project Structure
 
 ```
 src/
-├── app/              # App setup and routing
+├── app/              # Router and app entry point
 ├── components/       # Reusable UI components
-├── context/          # React Context (AppContext)
-├── data/             # Initial data
+│   ├── ErrorToast/   # Error notification component
+│   ├── Flashcard/    # 3D flip card component
+│   ├── Layout/       # Navigation and page layout
+│   ├── Loading/      # Loading spinner
+│   └── ProtectedRoute/ # Auth route guard
+├── context/          # AppContext (thin wrapper over useFlashcards)
+├── data/             # Initial seed data
 ├── features/         # Feature modules
+│   ├── auth/         # LoginPage and SignupPage
 │   ├── addcard/      # Add card form
+│   ├── cards/        # Card management (edit, delete)
 │   ├── quiz/         # Quiz pages (MC & Fill-in)
 │   ├── statistics/   # Statistics page
 │   └── study/        # Study mode
+├── hooks/            # Custom hooks
+│   ├── useAuth.ts    # Supabase auth session management
+│   └── useFlashcards.ts # Data fetching, CRUD, localStorage sync
+├── lib/
+│   └── supabase.ts   # Shared Supabase client singleton
 ├── types/            # TypeScript type definitions
 └── utils/            # Utility functions
     ├── storage.ts           # localStorage wrapper
-    ├── supabaseMCP.ts       # Supabase database wrapper
-    ├── validateNewCard.ts   # Card validation
+    ├── supabaseMCP.ts       # Supabase CRUD operations
+    ├── validateNewCard.ts   # Card creation validation
     └── validateAnswer.ts    # Answer validation
 ```
 
 ## Database Schema
 
-The app uses a Supabase PostgreSQL database with the following table:
-
 ```sql
-CREATE TABLE flashcards (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  french TEXT NOT NULL,
-  german TEXT NOT NULL,
-  category TEXT NOT NULL,
+CREATE TABLE public.flashcards (
+  id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  french     TEXT NOT NULL,
+  german     TEXT NOT NULL,
+  category   TEXT NOT NULL,
+  user_id    UUID REFERENCES auth.users(id) ON DELETE CASCADE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+
+-- Row Level Security: users see only their own cards
+ALTER TABLE public.flashcards ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Users can view own cards"   ON public.flashcards FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY "Users can insert own cards" ON public.flashcards FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can update own cards" ON public.flashcards FOR UPDATE USING (auth.uid() = user_id);
+CREATE POLICY "Users can delete own cards" ON public.flashcards FOR DELETE USING (auth.uid() = user_id);
 ```
 
 ## License
